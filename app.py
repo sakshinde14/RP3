@@ -37,7 +37,7 @@ def get_db_connection():
 def load_hostel_data():
     # Try to load from MongoDB first
     db = get_db_connection()
-    if db:
+    if db is not None:
         try:
             # Get all hostels from MongoDB collection 'hinfo'
             hostels_list = list(db.hinfo.find({}, {'_id': 0}))
@@ -85,7 +85,7 @@ def load_hostel_data():
 # No need to load data into MongoDB since you've already populated it
 def load_data_to_mongodb():
     db = get_db_connection()
-    if not db:
+    if db is None:
         return False
     
     try:
