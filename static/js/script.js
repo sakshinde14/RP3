@@ -5,23 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
     
-    // Filter functionality on recommendations page
-    const filterForm = document.getElementById('filter-form');
-    if (filterForm) {
-        filterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            filterRecommendations();
-        });
-        
-        // Also filter when any input changes
-        const filterInputs = filterForm.querySelectorAll('input, select');
-        filterInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                filterRecommendations();
-            });
-        });
-    }
-    
     // Budget range slider
     const budgetSlider = document.getElementById('budget');
     const budgetValue = document.getElementById('budget-display');
@@ -31,53 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-function filterRecommendations() {
-    const minScore = parseInt(document.getElementById('min-score').value) || 0;
-    const maxRent = parseInt(document.getElementById('max-rent').value) || Infinity;
-    const roomType = document.getElementById('filter-room-type').value;
-    const hostelType = document.getElementById('filter-hostel-type').value;
-    
-    const recommendationCards = document.querySelectorAll('.recommendation-card');
-    
-    recommendationCards.forEach(card => {
-        const score = parseFloat(card.dataset.score);
-        const rent = parseInt(card.dataset.rent);
-        const cardRoomTypes = card.dataset.roomTypes.split(',');
-        const cardHostelType = card.dataset.hostelType;
-        
-        let shouldShow = true;
-        
-        // Check score
-        if (score < minScore) shouldShow = false;
-        
-        // Check rent
-        if (rent > maxRent) shouldShow = false;
-        
-        // Check room type
-        if (roomType && roomType !== 'any' && !cardRoomTypes.includes(roomType)) shouldShow = false;
-        
-        // Check hostel type
-        if (hostelType && hostelType !== 'any' && cardHostelType !== hostelType) shouldShow = false;
-        
-        // Show or hide the card
-        if (shouldShow) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-    
-    // Show empty state if no results
-    const visibleCards = document.querySelectorAll('.recommendation-card[style="display: block"]');
-    const emptyState = document.getElementById('empty-results');
-    
-    if (visibleCards.length === 0 && emptyState) {
-        emptyState.style.display = 'block';
-    } else if (emptyState) {
-        emptyState.style.display = 'none';
-    }
-}
 
 // Helper function to format amenity names
 function formatAmenityName(amenity) {
