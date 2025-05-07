@@ -6,8 +6,8 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col">
-            <h1 class="mb-4">Your Hostel Recommendations</h1>
-            <p class="lead">Based on your preferences, we've found these hostels that match your requirements.</p>
+            <h1 class="mb-4">Your Hostel Recommendations in Pune</h1>
+            <p class="lead">Based on your preferences, we've found these hostels near your college that match your requirements.</p>
         </div>
     </div>
     
@@ -38,7 +38,7 @@
                             <strong><i class="fas fa-clipboard-list me-2"></i>Amenities:</strong>
                             <p>
                                 {% for amenity in preferences.amenities %}
-                                    <span class="badge bg-secondary me-1">{{ amenity|capitalize }}</span>
+                                    <span class="badge bg-secondary me-1">{{ amenity|replace('_', ' ')|capitalize }}</span>
                                 {% endfor %}
                             </p>
                         </div>
@@ -109,8 +109,9 @@
                          data-amenities="{{ recommendation.hostel.amenities|join(',') }}"
                          data-address="{{ recommendation.hostel.address }}"
                          data-contact="{{ recommendation.hostel.contact }}"
-                         data-safety="{{ recommendation.hostel.safety_rating }}"
-                         data-cleanliness="{{ recommendation.hostel.cleanliness }}"
+                         data-safety="{{ recommendation.hostel.safety_priority }}"
+                         data-rating="{{ recommendation.hostel.rating }}"
+                         data-distance="{{ recommendation.hostel.distance_to_college }}"
                          data-colleges="{{ recommendation.hostel.colleges_nearby|join(',') }}">
                         <div class="position-relative">
                             <img src="{{ recommendation.hostel.image_url }}" class="card-img-top hostel-image" alt="{{ recommendation.hostel.name }}">
@@ -127,12 +128,17 @@
                                     {{ room|capitalize }}{% if not loop.last %}, {% endif %}
                                 {% endfor %}<br>
                                 <strong><i class="fas fa-home me-1"></i>Type:</strong> {{ recommendation.hostel.type|capitalize }}<br>
-                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> {{ recommendation.hostel.avg_rating }}/5 ({{ recommendation.hostel.reviews_count }} reviews)
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> {{ recommendation.hostel.rating }}/5 ({{ recommendation.hostel.reviews_count }} reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> {{ recommendation.hostel.distance_to_college }} km from college
                             </p>
                             <div class="mb-3">
-                                {% for amenity in recommendation.hostel.amenities %}
-                                    <span class="badge bg-info text-dark me-1 mb-1">{{ amenity|capitalize }}</span>
+                                {% set top_amenities = recommendation.hostel.amenities[:5] %}
+                                {% for amenity in top_amenities %}
+                                    <span class="badge bg-info text-dark me-1 mb-1">{{ amenity|replace('_', ' ')|capitalize }}</span>
                                 {% endfor %}
+                                {% if recommendation.hostel.amenities|length > 5 %}
+                                    <span class="badge bg-secondary me-1 mb-1">+{{ recommendation.hostel.amenities|length - 5 }} more</span>
+                                {% endif %}
                             </div>
                             <div class="d-grid gap-2">
                                 <button class="btn btn-primary" onclick="showHostelDetails({{ recommendation.hostel.id }})">View Details</button>
@@ -145,7 +151,7 @@
             <div class="col-12 text-center">
                 <div class="p-5 bg-dark rounded">
                     <h3><i class="fas fa-exclamation-circle me-2"></i>No Recommendations Found</h3>
-                    <p class="lead">We couldn't find any hostels matching your preferences. Please try adjusting your criteria.</p>
+                    <p class="lead">We couldn't find any hostels near {{ preferences.college }} that match your preferences. Please try adjusting your criteria.</p>
                     <a href="{{ url_for('preference_form') }}" class="btn btn-primary mt-3">Update Preferences</a>
                 </div>
             </div>
@@ -173,6 +179,9 @@
                 <!-- Content will be dynamically populated -->
             </div>
             <div class="modal-footer">
+                <a href="#" id="contact-hostel" class="btn btn-success me-auto" target="_blank">
+                    <i class="fas fa-phone me-1"></i> Contact
+                </a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>

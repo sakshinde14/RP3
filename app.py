@@ -5,6 +5,9 @@ import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from sklearn.linear_model import LinearRegression
 from werkzeug.middleware.proxy_fix import ProxyFix
+import pymongo
+from pymongo import MongoClient
+import certifi
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -14,8 +17,35 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
-# Load hostel data from JSON
+# MongoDB connection (disabled for now, using JSON as fallback)
+def get_db_connection():
+    try:
+        # The MongoDB connection string would typically be stored in an environment variable
+        mongodb_uri = os.environ.get("MONGODB_URI")
+        if mongodb_uri:
+            client = MongoClient(mongodb_uri, tlsCAFile=certifi.where())
+            return client.hostel_recommendation_db
+        else:
+            logging.warning("MongoDB URI not found. Using JSON data instead.")
+            return None
+    except Exception as e:
+        logging.error(f"MongoDB connection error: {e}")
+        return None
+
+# Load hostel data from MongoDB or JSON as fallback
 def load_hostel_data():
+    # Try to load from MongoDB first
+    db = get_db_connection()
+    if db:
+        try:
+            # Get all hostels from MongoDB
+            hostels_list = list(db.hostels.find({}, {'_id': 0}))
+            if hostels_list:
+                return {"hostels": hostels_list}
+        except Exception as e:
+            logging.error(f"Error retrieving data from MongoDB: {e}")
+    
+    # Fallback to JSON
     try:
         with open('static/data/hostels.json', 'r') as f:
             return json.load(f)
@@ -26,8 +56,33 @@ def load_hostel_data():
             json.dump(hostels, f, indent=4)
         return hostels
 
+# Load initial data into MongoDB (would be called once during setup)
+def load_data_to_mongodb():
+    db = get_db_connection()
+    if not db:
+        return False
+    
+    # Check if data already exists
+    if db.hostels.count_documents({}) == 0:
+        try:
+            # Load from JSON
+            with open('static/data/hostels.json', 'r') as f:
+                hostels_data = json.load(f)
+            
+            # Insert into MongoDB
+            db.hostels.insert_many(hostels_data["hostels"])
+            logging.info("Data successfully loaded into MongoDB")
+            return True
+        except Exception as e:
+            logging.error(f"Error loading data into MongoDB: {e}")
+            return False
+    else:
+        logging.info("MongoDB already contains hostel data")
+        return True
+
 def generate_hostel_data():
     """Generate initial hostel data for the application"""
+    # This function is a fallback and shouldn't be needed if JSON file exists
     return {
         "hostels": [
             {
@@ -36,101 +91,15 @@ def generate_hostel_data():
                 "type": "hostel",
                 "rent": 8000,
                 "room_type": ["single", "double"],
-                "amenities": ["food", "wifi", "laundry", "AC", "gym"],
-                "distance_from_college": 1.5,
-                "safety_rating": 4.5,
-                "cleanliness": 4.2,
+                "amenities": ["food", "wifi", "laundry", "AC", "security", "geyser", "attached_bathroom"],
+                "safety_priority": 4.5,
+                "rating": 4.3,
                 "reviews_count": 120,
-                "avg_rating": 4.3,
-                "address": "123 College Road",
+                "distance_to_college": 1.5,
+                "address": "123 FC Road, Pune",
                 "contact": "9876543210",
                 "image_url": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3",
-                "colleges_nearby": ["Delhi University", "IP University"]
-            },
-            {
-                "id": 2,
-                "name": "Comfort PG for Ladies",
-                "type": "PG",
-                "rent": 7000,
-                "room_type": ["double", "shared"],
-                "amenities": ["food", "wifi", "laundry"],
-                "distance_from_college": 0.8,
-                "safety_rating": 4.0,
-                "cleanliness": 3.8,
-                "reviews_count": 85,
-                "avg_rating": 3.9,
-                "address": "45 Park Street",
-                "contact": "9876543211",
-                "image_url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3",
-                "colleges_nearby": ["Delhi University", "JNU"]
-            },
-            {
-                "id": 3,
-                "name": "Elite Women's Residence",
-                "type": "hostel",
-                "rent": 12000,
-                "room_type": ["single"],
-                "amenities": ["food", "wifi", "laundry", "AC", "gym", "swimming pool"],
-                "distance_from_college": 2.5,
-                "safety_rating": 4.8,
-                "cleanliness": 4.7,
-                "reviews_count": 200,
-                "avg_rating": 4.6,
-                "address": "78 Luxury Avenue",
-                "contact": "9876543212",
-                "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3",
-                "colleges_nearby": ["Delhi University", "IIT Delhi"]
-            },
-            {
-                "id": 4,
-                "name": "Budget Girls PG",
-                "type": "PG",
-                "rent": 5000,
-                "room_type": ["shared"],
-                "amenities": ["wifi", "laundry"],
-                "distance_from_college": 3.0,
-                "safety_rating": 3.5,
-                "cleanliness": 3.2,
-                "reviews_count": 60,
-                "avg_rating": 3.4,
-                "address": "120 Economy Lane",
-                "contact": "9876543213",
-                "image_url": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3",
-                "colleges_nearby": ["IP University", "Jamia Millia Islamia"]
-            },
-            {
-                "id": 5,
-                "name": "Serene Sisters Hostel",
-                "type": "hostel",
-                "rent": 9000,
-                "room_type": ["single", "double"],
-                "amenities": ["food", "wifi", "laundry", "AC"],
-                "distance_from_college": 1.2,
-                "safety_rating": 4.3,
-                "cleanliness": 4.0,
-                "reviews_count": 150,
-                "avg_rating": 4.2,
-                "address": "56 Serenity Road",
-                "contact": "9876543214",
-                "image_url": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3",
-                "colleges_nearby": ["JNU", "IP University"]
-            },
-            {
-                "id": 6,
-                "name": "Campus Corner PG",
-                "type": "PG",
-                "rent": 6500,
-                "room_type": ["double", "shared"],
-                "amenities": ["food", "wifi"],
-                "distance_from_college": 0.5,
-                "safety_rating": 3.8,
-                "cleanliness": 3.6,
-                "reviews_count": 90,
-                "avg_rating": 3.7,
-                "address": "10 Campus Road",
-                "contact": "9876543215",
-                "image_url": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3",
-                "colleges_nearby": ["Delhi University", "IP University"]
+                "colleges_nearby": ["Fergusson College", "Symbiosis College of Arts and Commerce"]
             }
         ]
     }
@@ -146,7 +115,9 @@ def map_room_type(room_types, preferred_type):
 
 def preprocess_hostel_data(hostels, preferences):
     """Process hostel data to prepare for regression model"""
-    all_amenities = ["food", "wifi", "laundry", "AC", "gym", "swimming pool"]
+    all_amenities = ["food", "wifi", "laundry", "AC", "security", "geyser", 
+                    "attached_bathroom", "CCTV", "RO_water", "parking", "cleaning", 
+                    "fridge", "warden"]
     
     # Extract features from hostels
     X = []
@@ -158,17 +129,18 @@ def preprocess_hostel_data(hostels, preferences):
         
         # College match (weight: how close the hostel is to preferred college)
         college_match = 1 if preferences["college"] in hostel["colleges_nearby"] else 0
+        distance_factor = 1 / (1 + hostel["distance_to_college"]) # Normalize distance (closer is better)
         
         # Amenities
         amenities_features = map_amenities(hostel["amenities"], all_amenities)
         
-        # Safety and cleanliness are important factors
-        safety = hostel["safety_rating"] / 5.0  # Normalize to 0-1
-        cleanliness = hostel["cleanliness"] / 5.0  # Normalize to 0-1
+        # Safety is an important factor for female students
+        safety = hostel["safety_priority"] / 5.0  # Normalize to 0-1
+        rating = hostel["rating"] / 5.0  # Normalize to 0-1
         
         # Combine all features
         features = [rent_match, room_match, type_match, college_match, 
-                    safety, cleanliness]
+                    distance_factor, safety, rating]
         features.extend(amenities_features)
         
         X.append(features)
@@ -183,18 +155,25 @@ def calculate_suitability_scores(hostels, preferences):
         "room_match": 0.15,
         "type_match": 0.1,
         "college_match": 0.15,
+        "distance_factor": 0.05,
         "safety": 0.15,
-        "cleanliness": 0.1,
-        "amenities": 0.15  # Split among all amenities
+        "rating": 0.1,
+        "amenities": 0.1  # Split among all amenities
     }
     
-    all_amenities = ["food", "wifi", "laundry", "AC", "gym", "swimming pool"]
+    all_amenities = ["food", "wifi", "laundry", "AC", "security", "geyser", 
+                    "attached_bathroom", "CCTV", "RO_water", "parking", "cleaning", 
+                    "fridge", "warden"]
     amenity_weight = weights["amenities"] / len(all_amenities)
     
     preferred_amenities = preferences.get("amenities", [])
     
     scores = []
     for hostel in hostels:
+        # First filter: Only consider hostels near the chosen college
+        if preferences["college"] not in hostel["colleges_nearby"]:
+            continue
+            
         score = 0
         
         # Budget match (penalize if over budget)
@@ -213,13 +192,14 @@ def calculate_suitability_scores(hostels, preferences):
         if hostel["type"] == preferences["hostel_type"]:
             score += weights["type_match"]
         
-        # College match
-        if preferences["college"] in hostel["colleges_nearby"]:
-            score += weights["college_match"]
+        # College match and distance
+        score += weights["college_match"]
+        distance_factor = 1 / (1 + hostel["distance_to_college"])
+        score += weights["distance_factor"] * distance_factor
         
-        # Safety and cleanliness
-        score += weights["safety"] * (hostel["safety_rating"] / 5.0)
-        score += weights["cleanliness"] * (hostel["cleanliness"] / 5.0)
+        # Safety and rating - important for female students
+        score += weights["safety"] * (hostel["safety_priority"] / 5.0)
+        score += weights["rating"] * (hostel["rating"] / 5.0)
         
         # Amenities match
         for amenity in preferred_amenities:
@@ -237,10 +217,6 @@ def calculate_suitability_scores(hostels, preferences):
     # Sort by score in descending order
     scores.sort(key=lambda x: x["score"], reverse=True)
     return scores
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/preference-form')
 def preference_form():
@@ -283,6 +259,66 @@ def recommendations():
     return render_template('recommendations.html', 
                            recommendations=scored_hostels,
                            preferences=preferences)
+
+@app.route('/api/get_recommendations', methods=['POST'])
+def api_get_recommendations():
+    """API endpoint to get recommendations (for potential React frontend)"""
+    try:
+        data = request.get_json()
+        
+        preferences = {
+            "college": data.get('college'),
+            "budget": int(data.get('budget')),
+            "room_type": data.get('room_type'),
+            "hostel_type": data.get('hostel_type'),
+            "amenities": data.get('amenities', [])
+        }
+        
+        hostels_data = load_hostel_data()
+        hostels = hostels_data["hostels"]
+        
+        # Calculate suitability scores
+        scored_hostels = calculate_suitability_scores(hostels, preferences)
+        
+        # Convert to simpler format for API response
+        response = []
+        for item in scored_hostels:
+            hostel = item["hostel"]
+            response.append({
+                "id": hostel["id"],
+                "name": hostel["name"],
+                "type": hostel["type"],
+                "rent": hostel["rent"],
+                "room_type": hostel["room_type"],
+                "amenities": hostel["amenities"],
+                "safety_priority": hostel["safety_priority"],
+                "rating": hostel["rating"],
+                "distance_to_college": hostel["distance_to_college"],
+                "address": hostel["address"],
+                "contact": hostel["contact"],
+                "image_url": hostel["image_url"],
+                "colleges_nearby": hostel["colleges_nearby"],
+                "score": item["score"]
+            })
+        
+        return jsonify({"recommendations": response})
+    except Exception as e:
+        logging.error(f"API error: {e}")
+        return jsonify({"error": str(e)}), 400
+
+# Initialize MongoDB with a function to be called from routes
+def initialize_db():
+    try:
+        load_data_to_mongodb()
+    except Exception as e:
+        logging.error(f"Error initializing database: {e}")
+
+# Call initialize_db from the index route to ensure it runs
+@app.route('/')
+def index():
+    # Initialize DB on first request
+    initialize_db()
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

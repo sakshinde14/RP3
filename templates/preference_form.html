@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col">
             <h1 class="mb-4">Tell Us Your Preferences</h1>
-            <p class="lead">Fill out the form below to help us find the perfect hostel match for you.</p>
+            <p class="lead">Fill out the form below to help us find the perfect hostel match for you in Pune.</p>
         </div>
     </div>
     
@@ -28,7 +28,7 @@
                 <form id="preference-form" action="{{ url_for('submit_preferences') }}" method="POST" class="needs-validation" novalidate>
                     <!-- College Selection -->
                     <div class="mb-4">
-                        <label for="college" class="form-label">College/University</label>
+                        <label for="college" class="form-label">College/University in Pune</label>
                         <select class="form-select" id="college" name="college" required>
                             <option value="" selected disabled>Select your college</option>
                             {% for college in colleges %}
@@ -42,7 +42,7 @@
                     <div class="mb-4">
                         <label for="budget" class="form-label">Maximum Monthly Rent Budget (₹)</label>
                         <div class="d-flex align-items-center mb-2">
-                            <input type="range" class="form-range flex-grow-1" id="budget" name="budget" min="3000" max="20000" step="500" value="8000" required>
+                            <input type="range" class="form-range flex-grow-1" id="budget" name="budget" min="1000" max="15000" step="500" value="8000" required>
                             <span class="ms-3 badge bg-primary px-3 py-2" id="budget-display">₹8000</span>
                         </div>
                         <div class="invalid-feedback">Please set your budget.</div>
@@ -98,6 +98,7 @@
                     <div class="mb-4">
                         <label class="form-label">Required Amenities</label>
                         <div class="row">
+                            <!-- First Row -->
                             <div class="col-md-4 mb-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="amenities" id="food" value="food">
@@ -122,6 +123,8 @@
                                     </label>
                                 </div>
                             </div>
+                            
+                            <!-- Second Row -->
                             <div class="col-md-4 mb-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="amenities" id="ac" value="AC">
@@ -132,17 +135,79 @@
                             </div>
                             <div class="col-md-4 mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="amenities" id="gym" value="gym">
-                                    <label class="form-check-label" for="gym">
-                                        <i class="fas fa-dumbbell me-1"></i> Gym
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="security" value="security">
+                                    <label class="form-check-label" for="security">
+                                        <i class="fas fa-shield-alt me-1"></i> Security
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="amenities" id="swimming-pool" value="swimming pool">
-                                    <label class="form-check-label" for="swimming-pool">
-                                        <i class="fas fa-swimming-pool me-1"></i> Swimming Pool
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="geyser" value="geyser">
+                                    <label class="form-check-label" for="geyser">
+                                        <i class="fas fa-hot-tub me-1"></i> Geyser
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Third Row -->
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="attached-bathroom" value="attached_bathroom">
+                                    <label class="form-check-label" for="attached-bathroom">
+                                        <i class="fas fa-bath me-1"></i> Attached Bathroom
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="cctv" value="CCTV">
+                                    <label class="form-check-label" for="cctv">
+                                        <i class="fas fa-video me-1"></i> CCTV
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="ro-water" value="RO_water">
+                                    <label class="form-check-label" for="ro-water">
+                                        <i class="fas fa-tint me-1"></i> RO Water
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Fourth Row -->
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="parking" value="parking">
+                                    <label class="form-check-label" for="parking">
+                                        <i class="fas fa-parking me-1"></i> Parking
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="cleaning" value="cleaning">
+                                    <label class="form-check-label" for="cleaning">
+                                        <i class="fas fa-broom me-1"></i> Cleaning
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="fridge" value="fridge">
+                                    <label class="form-check-label" for="fridge">
+                                        <i class="fas fa-snowflake me-1"></i> Fridge
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Fifth Row -->
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="warden" value="warden">
+                                    <label class="form-check-label" for="warden">
+                                        <i class="fas fa-user-shield me-1"></i> Warden
                                     </label>
                                 </div>
                             </div>
@@ -152,7 +217,7 @@
                     
                     <!-- Submit Button -->
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Find Hostels</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Show Recommendations</button>
                     </div>
                 </form>
             </div>
@@ -163,7 +228,7 @@
             <div class="card bg-dark mb-4">
                 <div class="card-body">
                     <h4 class="card-title"><i class="fas fa-info-circle me-2"></i>Why We Need This Info</h4>
-                    <p class="card-text">We use your preferences to train our recommendation model, helping us find the most suitable accommodation for you.</p>
+                    <p class="card-text">We use your preferences to train our recommendation model, helping us find the most suitable accommodation for you in Pune.</p>
                 </div>
             </div>
             
@@ -171,9 +236,9 @@
                 <div class="card-body">
                     <h4 class="card-title"><i class="fas fa-lightbulb me-2"></i>Tips</h4>
                     <ul class="card-text">
-                        <li class="mb-2">Be realistic about your budget</li>
-                        <li class="mb-2">Consider what amenities are truly important to you</li>
-                        <li class="mb-2">Think about proximity to your college</li>
+                        <li class="mb-2">Be realistic about your budget (most Pune hostels range from ₹6,000 to ₹12,000)</li>
+                        <li class="mb-2">Prioritize safety features like CCTV and security</li>
+                        <li class="mb-2">Consider proximity to your college to save on commute time and costs</li>
                         <li>Balance cost with comfort and safety</li>
                     </ul>
                 </div>
@@ -181,8 +246,8 @@
             
             <div class="card bg-dark">
                 <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-lock me-2"></i>Privacy Note</h4>
-                    <p class="card-text">Your preference data is only used to generate recommendations and is not shared with third parties.</p>
+                    <h4 class="card-title"><i class="fas fa-shield-alt me-2"></i>Safety First</h4>
+                    <p class="card-text">All hostels in our database are verified for safety standards and are suitable for female students.</p>
                 </div>
             </div>
         </div>

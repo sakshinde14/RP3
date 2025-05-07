@@ -1,30 +1,29 @@
-// Form validation for the preference form
+// Form validation for preference form
 
 document.addEventListener('DOMContentLoaded', function() {
-    const preferenceForm = document.getElementById('preference-form');
+    // Get the form element
+    const form = document.getElementById('preference-form');
     
-    if (preferenceForm) {
-        preferenceForm.addEventListener('submit', function(event) {
+    if (form) {
+        // Update budget display when slider changes
+        const budgetSlider = document.getElementById('budget');
+        const budgetDisplay = document.getElementById('budget-display');
+        
+        if (budgetSlider && budgetDisplay) {
+            budgetSlider.addEventListener('input', function() {
+                budgetDisplay.textContent = '₹' + this.value;
+            });
+        }
+        
+        // Form validation
+        form.addEventListener('submit', function(event) {
             if (!validateForm()) {
                 event.preventDefault();
                 event.stopPropagation();
             }
             
-            preferenceForm.classList.add('was-validated');
+            form.classList.add('was-validated');
         });
-    }
-    
-    // Update budget value display when slider changes
-    const budgetSlider = document.getElementById('budget');
-    const budgetDisplay = document.getElementById('budget-display');
-    
-    if (budgetSlider && budgetDisplay) {
-        budgetSlider.addEventListener('input', function() {
-            budgetDisplay.textContent = '₹' + this.value;
-        });
-        
-        // Set initial value
-        budgetDisplay.textContent = '₹' + budgetSlider.value;
     }
 });
 
@@ -34,56 +33,56 @@ function validateForm() {
     // College validation
     const college = document.getElementById('college');
     if (!college.value) {
-        isValid = false;
         setInvalidFeedback(college, 'Please select your college');
+        isValid = false;
     } else {
         setValidFeedback(college);
     }
     
-    // Budget validation
-    const budget = document.getElementById('budget');
-    if (!budget.value || budget.value < 1000) {
-        isValid = false;
-        setInvalidFeedback(budget, 'Please set a valid budget (minimum ₹1000)');
-    } else {
-        setValidFeedback(budget);
-    }
-    
     // Room type validation
-    const roomType = document.querySelector('input[name="room_type"]:checked');
-    if (!roomType) {
-        isValid = false;
+    const roomTypes = document.querySelectorAll('input[name="room_type"]');
+    let roomTypeSelected = false;
+    
+    roomTypes.forEach(function(radio) {
+        if (radio.checked) {
+            roomTypeSelected = true;
+        }
+    });
+    
+    if (!roomTypeSelected) {
         document.getElementById('room-type-feedback').textContent = 'Please select a room type';
-        document.getElementById('room-type-feedback').style.display = 'block';
+        document.getElementById('room-type-feedback').classList.add('invalid-feedback');
+        isValid = false;
     } else {
-        document.getElementById('room-type-feedback').style.display = 'none';
+        document.getElementById('room-type-feedback').textContent = '';
     }
     
     // Hostel type validation
-    const hostelType = document.querySelector('input[name="hostel_type"]:checked');
-    if (!hostelType) {
-        isValid = false;
-        document.getElementById('hostel-type-feedback').textContent = 'Please select a hostel type';
-        document.getElementById('hostel-type-feedback').style.display = 'block';
-    } else {
-        document.getElementById('hostel-type-feedback').style.display = 'none';
-    }
+    const hostelTypes = document.querySelectorAll('input[name="hostel_type"]');
+    let hostelTypeSelected = false;
     
-    // Amenities validation (at least one should be selected)
-    const amenities = document.querySelectorAll('input[name="amenities"]:checked');
-    if (amenities.length === 0) {
+    hostelTypes.forEach(function(radio) {
+        if (radio.checked) {
+            hostelTypeSelected = true;
+        }
+    });
+    
+    if (!hostelTypeSelected) {
+        document.getElementById('hostel-type-feedback').textContent = 'Please select a hostel type';
+        document.getElementById('hostel-type-feedback').classList.add('invalid-feedback');
         isValid = false;
-        document.getElementById('amenities-feedback').textContent = 'Please select at least one amenity';
-        document.getElementById('amenities-feedback').style.display = 'block';
     } else {
-        document.getElementById('amenities-feedback').style.display = 'none';
+        document.getElementById('hostel-type-feedback').textContent = '';
     }
     
     return isValid;
 }
 
 function setInvalidFeedback(element, message) {
-    element.setCustomValidity('Invalid');
+    element.classList.add('is-invalid');
+    element.classList.remove('is-valid');
+    
+    // Get the next sibling which should be the feedback div
     const feedback = element.nextElementSibling;
     if (feedback && feedback.classList.contains('invalid-feedback')) {
         feedback.textContent = message;
@@ -91,5 +90,6 @@ function setInvalidFeedback(element, message) {
 }
 
 function setValidFeedback(element) {
-    element.setCustomValidity('');
+    element.classList.remove('is-invalid');
+    element.classList.add('is-valid');
 }

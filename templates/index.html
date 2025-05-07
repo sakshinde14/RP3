@@ -4,8 +4,8 @@
 <!-- Hero Section -->
 <section class="hero-section text-center">
     <div class="container">
-        <h1 class="display-4 mb-4">Find Your Perfect Hostel Match</h1>
-        <p class="lead mb-5">Our smart recommendation system helps female students find the best accommodation based on their preferences.</p>
+        <h1 class="display-4 mb-4">Find Your Perfect Hostel in Pune</h1>
+        <p class="lead mb-5">Our smart recommendation system helps female college students find the best accommodation in Pune based on their preferences.</p>
         <a href="{{ url_for('preference_form') }}" class="btn btn-primary btn-lg">Get Started</a>
     </div>
 </section>
@@ -23,7 +23,7 @@
                             <i class="fas fa-clipboard-list"></i>
                         </div>
                         <h4 class="card-title">Tell Us Your Preferences</h4>
-                        <p class="card-text">Fill out a simple form with your requirements, budget, and desired amenities.</p>
+                        <p class="card-text">Fill out a simple form with your college, budget, room type, and desired amenities.</p>
                     </div>
                     <div class="card-footer bg-dark border-0 text-center">
                         <span class="badge bg-light text-dark">Step 1</span>
@@ -37,7 +37,7 @@
                             <i class="fas fa-brain"></i>
                         </div>
                         <h4 class="card-title">Smart Analysis</h4>
-                        <p class="card-text">Our machine learning algorithm analyzes your preferences to find the best matches.</p>
+                        <p class="card-text">Our linear regression model analyzes your preferences to find the best hostels near your college.</p>
                     </div>
                     <div class="card-footer bg-dark border-0 text-center">
                         <span class="badge bg-light text-dark">Step 2</span>
@@ -51,7 +51,7 @@
                             <i class="fas fa-thumbs-up"></i>
                         </div>
                         <h4 class="card-title">Get Personalized Recommendations</h4>
-                        <p class="card-text">Receive a list of hostels ranked by how well they match your requirements.</p>
+                        <p class="card-text">Receive a ranked list of hostels and PGs in Pune that best match your requirements.</p>
                     </div>
                     <div class="card-footer bg-dark border-0 text-center">
                         <span class="badge bg-light text-dark">Step 3</span>
@@ -63,7 +63,7 @@
     
     <!-- Features Section -->
     <section class="my-5">
-        <h2 class="text-center mb-4">Why Choose HostelMatch?</h2>
+        <h2 class="text-center mb-4">Why Choose HostelMatch for Pune?</h2>
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="d-flex align-items-start">
@@ -72,7 +72,7 @@
                     </div>
                     <div>
                         <h4>Smart Recommendations</h4>
-                        <p>Our linear regression model considers multiple factors to provide personalized hostel recommendations.</p>
+                        <p>Our advanced algorithm considers proximity to college, safety, budget, and amenities to find your ideal accommodation in Pune.</p>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,18 @@
                     </div>
                     <div>
                         <h4>Safety First</h4>
-                        <p>We prioritize safety in our recommendations, ensuring comfortable and secure accommodations for female students.</p>
+                        <p>All hostels and PGs in our database are verified for safety standards, with safety ratings available to help female students make informed decisions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="d-flex align-items-start">
+                    <div class="me-3">
+                        <i class="fas fa-map-marker-alt text-success fs-3"></i>
+                    </div>
+                    <div>
+                        <h4>College Proximity</h4>
+                        <p>Find accommodations near your specific college in Pune, saving time and commute costs while studying.</p>
                     </div>
                 </div>
             </div>
@@ -94,18 +105,56 @@
                     </div>
                     <div>
                         <h4>Budget-Friendly Options</h4>
-                        <p>Find hostels that match your budget requirements without compromising on essential facilities.</p>
+                        <p>Filter hostels based on your budget, with options ranging from affordable shared accommodations to premium single rooms.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="d-flex align-items-start">
-                    <div class="me-3">
-                        <i class="fas fa-filter text-success fs-3"></i>
+        </div>
+    </section>
+    
+    <!-- College List Section -->
+    <section class="my-5">
+        <h2 class="text-center mb-4">Popular Colleges in Pune</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card bg-dark h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-university me-2"></i>Arts & Commerce</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Fergusson College</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Symbiosis College of Arts and Commerce</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Brihan Maharashtra College of Commerce</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Sir Parashurambhau College</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Modern College of Arts, Science & Commerce</li>
+                        </ul>
                     </div>
-                    <div>
-                        <h4>Customizable Preferences</h4>
-                        <p>Specify exactly what you need in your accommodation and we'll find the closest matches.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card bg-dark h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-laptop-code me-2"></i>Engineering</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>College of Engineering (COEP)</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Pune Institute of Computer Technology</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Vishwakarma Institute of Technology</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Cummins College for Women</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Maharashtra Institute of Technology</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card bg-dark h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-book me-2"></i>Other Institutions</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>MIT World Peace University</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>ILS Law College</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Armed Forces Medical College</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>Sinhgad College of Engineering</li>
+                            <li><i class="fas fa-check-circle text-primary me-2"></i>AISSMS College of Engineering</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -114,9 +163,9 @@
     
     <!-- CTA Section -->
     <section class="my-5 p-5 bg-primary text-white text-center rounded">
-        <h2 class="mb-4">Ready to Find Your Perfect Hostel?</h2>
-        <p class="lead mb-4">Our recommendation system is designed to help female students find safe and comfortable accommodations.</p>
-        <a href="{{ url_for('preference_form') }}" class="btn btn-light btn-lg">Get Started Now</a>
+        <h2 class="mb-4">Ready to Find Your Perfect Hostel in Pune?</h2>
+        <p class="lead mb-4">Our recommendation system is designed to help female students find safe, comfortable, and convenient accommodations near their college.</p>
+        <a href="{{ url_for('preference_form') }}" class="btn btn-light btn-lg">Find Hostels Now</a>
     </section>
 </div>
 {% endblock %}
