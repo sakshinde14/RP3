@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Hostel Recommendations - HostelMatch</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-home me-2"></i>PuneHostels
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/preference-form">Find Hostels</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/recommendations">Recommendations</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Flash Messages -->
+    
+        
+    
+    
+    <!-- Main Content -->
+    <div class="site-content">
+        
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4">Your Hostel Recommendations in Pune</h1>
+            <p class="lead">Based on your preferences, we've found these hostels near your college that match your requirements.</p>
+        </div>
+    </div>
+    
+    <!-- User Preferences Summary -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark mb-4">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Your Preferences</h4>
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-university me-2"></i>College:</strong>
+                            <p>Dr. D. Y. Patil Institute of Technology, Pimpri</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-rupee-sign me-2"></i>Budget:</strong>
+                            <p>₹5000</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-bed me-2"></i>Room Type:</strong>
+                            <p>Single</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-home me-2"></i>Hostel Type:</strong>
+                            <p>Hostel</p>
+                        </div>
+                        <div class="col-12">
+                            <strong><i class="fas fa-clipboard-list me-2"></i>Amenities:</strong>
+                            <p>
+                                
+                                    <span class="badge bg-secondary me-1">Food</span>
+                                
+                                    <span class="badge bg-secondary me-1">Wifi</span>
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="filter-section">
+                <h4 class="mb-3">Filter Results</h4>
+                <form id="filter-form" class="row g-3">
+                    <div class="col-md-3">
+                        <label for="min-score" class="form-label">Minimum Score</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="min-score" min="0" max="100" value="0">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="max-rent" class="form-label">Maximum Rent</label>
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            <input type="number" class="form-control" id="max-rent" min="0" value="5000">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filter-room-type" class="form-label">Room Type</label>
+                        <select class="form-select" id="filter-room-type">
+                            <option value="any" selected>Any</option>
+                            <option value="single">Single</option>
+                            <option value="double">Double</option>
+                            <option value="shared">Shared</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filter-hostel-type" class="form-label">Hostel Type</label>
+                        <select class="form-select" id="filter-hostel-type">
+                            <option value="any" selected>Any</option>
+                            <option value="hostel">Hostel</option>
+                            <option value="PG">PG</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        <button type="reset" class="btn btn-outline-secondary ms-2">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recommendations -->
+    <div class="row">
+        
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="3558"
+                         data-score="77.7"
+                         data-rent="2776"
+                         data-room-types="single"
+                         data-hostel-type="Hostel"
+                         data-name="Dr.  Hostel 2"
+                         data-amenities="ac,attached_bathroom,drinking_water_(ro),food,cleaning,wifi,laundry"
+                         data-address="4939 Billy Manors Suite 339
+New David, MS 95687"
+                         data-contact="001-788-215-1383"
+                         data-safety="5"
+                         data-rating="4.7"
+                         data-distance="1.8"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1541216107-37357762?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 2">
+                            <div class="score-badge bg-info">
+                                77.7%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 2</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹2776/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Single
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Hostel<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.7/5 (181 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 1.8 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Ac</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+2 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(3558)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="7396"
+                         data-score="69.9"
+                         data-rent="3402"
+                         data-room-types="single"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 15"
+                         data-amenities="cctv,fridge,drinking_water_(ro),hot_water_/_geyser,attached_bathroom,warden,laundry,food,cleaning,wifi,security,parking"
+                         data-address="689 Philip Drive Suite 023
+East Christopherview, ND 55112"
+                         data-contact="3298099441"
+                         data-safety="2"
+                         data-rating="3.9"
+                         data-distance="0.1"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1589110324-75918315?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 15">
+                            <div class="score-badge bg-info">
+                                69.9%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 15</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹3402/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Single
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.9/5 (77 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 0.1 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Hot water / geyser</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+7 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(7396)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="8920"
+                         data-score="67.3"
+                         data-rent="2144"
+                         data-room-types="single"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 18"
+                         data-amenities="cctv,security,fridge,drinking_water_(ro),laundry,wifi,attached_bathroom,food"
+                         data-address="12589 Love Course Apt. 778
+North Charleston, WY 81951"
+                         data-contact="991.251.5297x38089"
+                         data-safety="2"
+                         data-rating="4.1"
+                         data-distance="2.3"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1540805093-26933547?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 18">
+                            <div class="score-badge bg-info">
+                                67.3%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 18</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹2144/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Single
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.1/5 (58 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 2.3 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+3 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(8920)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="7818"
+                         data-score="63.1"
+                         data-rent="4998"
+                         data-room-types="double"
+                         data-hostel-type="Hostel"
+                         data-name="Dr.  Hostel 6"
+                         data-amenities="cleaning,parking,fridge,security,drinking_water_(ro),hot_water_/_geyser,warden,food,attached_bathroom,wifi,cctv,laundry,ac"
+                         data-address="2510 Baker Spurs Suite 281
+Brendafurt, IA 05032"
+                         data-contact="001-401-576-9349"
+                         data-safety="5"
+                         data-rating="4.7"
+                         data-distance="1.3"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1525749777-29333862?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 6">
+                            <div class="score-badge bg-info">
+                                63.1%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 6</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹4998/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Hostel<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.7/5 (191 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 1.3 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Parking</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+8 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(7818)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="5733"
+                         data-score="59.7"
+                         data-rent="1198"
+                         data-room-types="double"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 14"
+                         data-amenities="security,food,ac,cctv,fridge,drinking_water_(ro),hot_water_/_geyser,attached_bathroom,wifi,laundry,warden,parking,cleaning"
+                         data-address="5850 Jose Lane
+North Dianeberg, AZ 10156"
+                         data-contact="690.675.0028x45179"
+                         data-safety="3.5"
+                         data-rating="5.0"
+                         data-distance="0.9"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1572693697-37524578?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 14">
+                            <div class="score-badge bg-warning">
+                                59.7%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 14</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹1198/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 5.0/5 (155 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 0.9 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Ac</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+8 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(5733)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="3012"
+                         data-score="57.3"
+                         data-rent="1641"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 3"
+                         data-amenities="laundry,wifi,cleaning,security,attached_bathroom,cctv,ac,drinking_water_(ro),parking,fridge,hot_water_/_geyser,warden"
+                         data-address="Unit 2467 Box 9687
+DPO AA 39630"
+                         data-contact="646-731-5052x1011"
+                         data-safety="3.5"
+                         data-rating="4.8"
+                         data-distance="2.6"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1514663750-29700542?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 3">
+                            <div class="score-badge bg-warning">
+                                57.3%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 3</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹1641/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.8/5 (98 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 2.6 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+7 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(3012)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="8266"
+                         data-score="55.4"
+                         data-rent="3522"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 12"
+                         data-amenities="cctv,warden,cleaning,wifi,fridge,laundry"
+                         data-address="327 Thomas Land
+North Rickchester, WV 69179"
+                         data-contact="+1-588-634-8990x315"
+                         data-safety="3.5"
+                         data-rating="3.5"
+                         data-distance="1.4"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1502362725-11355855?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 12">
+                            <div class="score-badge bg-warning">
+                                55.4%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 12</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹3522/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.5/5 (190 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 1.4 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+1 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(8266)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="864"
+                         data-score="52.7"
+                         data-rent="2761"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 20"
+                         data-amenities="attached_bathroom,drinking_water_(ro),ac,laundry,wifi,hot_water_/_geyser,cctv,warden,security,food,cleaning,fridge,parking"
+                         data-address="950 Kathy Orchard
+East Micheleborough, AK 55905"
+                         data-contact="353.446.4758x8807"
+                         data-safety="2"
+                         data-rating="4.2"
+                         data-distance="1.8"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1512220545-94595763?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 20">
+                            <div class="score-badge bg-warning">
+                                52.7%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 20</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹2761/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.2/5 (102 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 1.8 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Ac</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+8 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(864)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="4792"
+                         data-score="51.3"
+                         data-rent="1773"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 1"
+                         data-amenities="drinking_water_(ro),cctv,warden,laundry,cleaning,parking,attached_bathroom,fridge,wifi"
+                         data-address="7888 Rose Cove
+Lake Matthewland, DE 14311"
+                         data-contact="(214)973-7095x2008"
+                         data-safety="2"
+                         data-rating="3.7"
+                         data-distance="1.4"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1576012476-48259047?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 1">
+                            <div class="score-badge bg-warning">
+                                51.3%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 1</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹1773/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.7/5 (60 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 1.4 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+4 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(4792)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="3624"
+                         data-score="51.2"
+                         data-rent="3269"
+                         data-room-types="double"
+                         data-hostel-type="Hostel"
+                         data-name="Dr.  Hostel 13"
+                         data-amenities="drinking_water_(ro),warden,cleaning,attached_bathroom,wifi,cctv,parking"
+                         data-address="97203 Sanders Bridge
+South Deborah, MH 86197"
+                         data-contact="839-442-0172x8453"
+                         data-safety="2"
+                         data-rating="3.9"
+                         data-distance="2.1"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1529486407-55155140?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 13">
+                            <div class="score-badge bg-warning">
+                                51.2%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 13</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹3269/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Hostel<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.9/5 (187 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 2.1 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+2 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(3624)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="3337"
+                         data-score="46.0"
+                         data-rent="7507"
+                         data-room-types="single"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 17"
+                         data-amenities="security,ac,food,attached_bathroom,wifi,warden,laundry"
+                         data-address="11562 Jamie Lock Suite 565
+Luisport, AK 18669"
+                         data-contact="882-315-9625x6084"
+                         data-safety="5"
+                         data-rating="4.2"
+                         data-distance="3.6"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1515920806-79184350?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 17">
+                            <div class="score-badge bg-warning">
+                                46.0%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 17</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹7507/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Single
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.2/5 (110 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 3.6 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Ac</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+2 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(3337)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="443"
+                         data-score="40.2"
+                         data-rent="5300"
+                         data-room-types="shared"
+                         data-hostel-type="Hostel"
+                         data-name="Dr.  Hostel 11"
+                         data-amenities="warden,ac,laundry,attached_bathroom,food,drinking_water_(ro),parking,wifi,security,hot_water_/_geyser"
+                         data-address="77837 Melissa Plains Apt. 984
+East Jonhaven, VT 17796"
+                         data-contact="448-655-9643x2690"
+                         data-safety="5"
+                         data-rating="4.4"
+                         data-distance="3.9"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1578661848-18806410?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 11">
+                            <div class="score-badge bg-warning">
+                                40.2%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 11</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹5300/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Hostel<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.4/5 (154 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 3.9 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Ac</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+5 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(443)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="623"
+                         data-score="39.3"
+                         data-rent="5254"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 19"
+                         data-amenities="cctv,attached_bathroom,drinking_water_(ro),ac,food,cleaning,fridge,security,wifi,warden,parking,hot_water_/_geyser"
+                         data-address="0531 Kimberly Ways
+Catherinemouth, VA 11832"
+                         data-contact="(418)312-0674"
+                         data-safety="5"
+                         data-rating="3.9"
+                         data-distance="4.2"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1556312591-33085896?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 19">
+                            <div class="score-badge bg-danger">
+                                39.3%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 19</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹5254/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.9/5 (64 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 4.2 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Ac</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+7 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(623)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="2592"
+                         data-score="36.7"
+                         data-rent="5382"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 4"
+                         data-amenities="fridge,attached_bathroom,warden,security,cctv,laundry,drinking_water_(ro)"
+                         data-address="USS Brown
+FPO AA 85141"
+                         data-contact="625-859-1490x20163"
+                         data-safety="5"
+                         data-rating="3.6"
+                         data-distance="4.1"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1543407300-26147296?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 4">
+                            <div class="score-badge bg-danger">
+                                36.7%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 4</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹5382/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.6/5 (152 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 4.1 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+2 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(2592)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="3659"
+                         data-score="32.5"
+                         data-rent="8265"
+                         data-room-types="single"
+                         data-hostel-type="Hostel"
+                         data-name="Dr.  Hostel 16"
+                         data-amenities="security,fridge,parking,laundry,drinking_water_(ro),hot_water_/_geyser,attached_bathroom,warden,ac,wifi,cleaning"
+                         data-address="59262 Thomas Unions
+Jorgehaven, CT 76464"
+                         data-contact="(471)307-1891x221"
+                         data-safety="2"
+                         data-rating="3.7"
+                         data-distance="2.5"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1553577686-89820888?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 16">
+                            <div class="score-badge bg-danger">
+                                32.5%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 16</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹8265/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Single
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Hostel<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.7/5 (88 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 2.5 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Fridge</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Parking</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+6 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(3659)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="8949"
+                         data-score="29.3"
+                         data-rent="8019"
+                         data-room-types="double"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 8"
+                         data-amenities="cctv,hot_water_/_geyser,food,parking,wifi,cleaning,drinking_water_(ro),laundry,fridge"
+                         data-address="9270 Hernandez Harbor Apt. 187
+Crystalshire, OR 88622"
+                         data-contact="+1-480-330-7011x7234"
+                         data-safety="5"
+                         data-rating="4.0"
+                         data-distance="1.7"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1504606159-45642730?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 8">
+                            <div class="score-badge bg-danger">
+                                29.3%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 8</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹8019/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.0/5 (111 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 1.7 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cctv</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Hot water / geyser</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Parking</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+4 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(8949)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="8858"
+                         data-score="29.0"
+                         data-rent="5817"
+                         data-room-types="double"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 10"
+                         data-amenities="wifi,attached_bathroom,drinking_water_(ro),security,food,parking,hot_water_/_geyser,cctv,warden,cleaning,laundry,fridge"
+                         data-address="900 Gonzalez Pass
+Phelpston, MP 76579"
+                         data-contact="(587)849-4883x9458"
+                         data-safety="2"
+                         data-rating="4.3"
+                         data-distance="3.6"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1548751131-16205260?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 10">
+                            <div class="score-badge bg-danger">
+                                29.0%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 10</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹5817/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.3/5 (108 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 3.6 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Wifi</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+7 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(8858)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="4073"
+                         data-score="26.7"
+                         data-rent="7653"
+                         data-room-types="double"
+                         data-hostel-type="Hostel"
+                         data-name="Dr.  Hostel 7"
+                         data-amenities="warden,security,drinking_water_(ro),cleaning,food,fridge,cctv,ac,attached_bathroom,laundry,parking,wifi,hot_water_/_geyser"
+                         data-address="57308 Jonathan Spring Apt. 627
+Tanyaberg, MH 40136"
+                         data-contact="+1-943-795-0657x131"
+                         data-safety="3.5"
+                         data-rating="4.5"
+                         data-distance="2.9"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1500490933-97783205?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 7">
+                            <div class="score-badge bg-danger">
+                                26.7%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 7</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹7653/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Hostel<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.5/5 (187 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 2.9 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+8 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(4073)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="2354"
+                         data-score="25.0"
+                         data-rent="9219"
+                         data-room-types="shared"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 5"
+                         data-amenities="laundry,attached_bathroom,warden,cleaning,food,cctv,hot_water_/_geyser,security,wifi,drinking_water_(ro),fridge"
+                         data-address="1347 Mcintosh Cove
+Porterland, NY 40445"
+                         data-contact="7153928041"
+                         data-safety="5"
+                         data-rating="3.8"
+                         data-distance="0.8"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1533993605-73955553?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 5">
+                            <div class="score-badge bg-danger">
+                                25.0%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 5</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹9219/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Shared
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 3.8/5 (103 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 0.8 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Laundry</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Warden</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Cleaning</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Food</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+6 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(2354)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="8853"
+                         data-score="14.6"
+                         data-rent="9486"
+                         data-room-types="double"
+                         data-hostel-type="PG"
+                         data-name="Dr.  Hostel 9"
+                         data-amenities="security,parking,hot_water_/_geyser,drinking_water_(ro),attached_bathroom,cleaning,wifi"
+                         data-address="9309 Ramsey Orchard Suite 877
+North Thomashaven, KS 63911"
+                         data-contact="355-648-6508x2088"
+                         data-safety="2"
+                         data-rating="4.9"
+                         data-distance="4.1"
+                         data-colleges="Dr. D. Y. Patil Institute of Technology, Pimpri">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1569163170-45313716?ixlib=rb-4.0.3" class="card-img-top hostel-image" alt="Dr.  Hostel 9">
+                            <div class="score-badge bg-danger">
+                                14.6%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr.  Hostel 9</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹9486/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                
+                                    Double
+                                <br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> Pg<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> 4.9/5 (122 reviews)<br>
+                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> 4.1 km from college
+                            </p>
+                            <div class="mb-3">
+                                
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Security</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Parking</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Hot water / geyser</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Drinking water (ro)</span>
+                                
+                                    <span class="badge bg-info text-dark me-1 mb-1">Attached bathroom</span>
+                                
+                                
+                                    <span class="badge bg-secondary me-1 mb-1">+2 more</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails(8853)">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        
+    </div>
+    
+    <!-- Empty state (hidden by default) -->
+    <div id="empty-results" class="empty-state">
+        <i class="fas fa-filter fa-3x mb-3 text-muted"></i>
+        <h3>No results match your filters</h3>
+        <p class="lead">Try adjusting your filter criteria to see more results.</p>
+        <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('filter-form').reset(); filterRecommendations();">Reset Filters</button>
+    </div>
+</div>
+
+<!-- Hostel Detail Modal -->
+<div class="modal fade" id="hostelDetailModal" tabindex="-1" aria-labelledby="hostelDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hostelDetailModalLabel">Hostel Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="contact-hostel" class="btn btn-success me-auto" target="_blank">
+                    <i class="fas fa-phone me-1"></i> Contact
+                </a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-home me-2"></i>PuneHostels</h5>
+                    <p>Finding the perfect hostels and PGs in Pune for female college students using advanced recommendation technology.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-light">Home</a></li>
+                        <li><a href="/preference-form" class="text-light">Find Hostels</a></li>
+                        <li><a href="#" class="text-light">About Pune</a></li>
+                        <li><a href="#" class="text-light">Safety Tips</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>support@punehostels.com</li>
+                        <li><i class="fas fa-phone me-2"></i>+91 9876543210</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>FC Road, Pune</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 PuneHostels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Main Script -->
+    <script src="/static/js/script.js"></script>
+    
+    
+</body>
+</html>
