@@ -6,33 +6,56 @@
   --pink-dark: #EC407A;       /* Dark pink for hover/focus */
   --pink-very-light: #FCE4EC; /* Very light pink for backgrounds */
   --pink-complementary: #5E35B1; /* Complementary color for accents */
+  --pink-dark-text: #333333;  /* Dark text color for contrast on light backgrounds */
+  --pink-light-text: #FFFFFF; /* Light text color for contrast on dark backgrounds */
+  --pink-light-card: #FFF6FA; /* Very light pink for card backgrounds */
 }
 
+/* Base Styles */
 body {
   background-color: var(--pink-very-light);
+  color: var(--pink-dark-text);
 }
 
+/* Navbar */
 .navbar {
   background-color: var(--pink-primary) !important;
 }
 
-.card {
-  border-color: var(--pink-primary);
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+  color: var(--pink-dark-text) !important;
 }
 
-.bg-dark {
-  background-color: #ffffff !important;
-  border: 1px solid var(--pink-primary);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+.navbar-light .navbar-nav .nav-link.active {
+  color: var(--pink-dark) !important;
+  font-weight: bold;
+}
+
+/* Cards */
+.card {
+  border-color: var(--pink-primary);
+  background-color: var(--pink-light-card) !important;
+  color: var(--pink-dark-text) !important;
 }
 
 .card-title {
   color: var(--pink-dark);
 }
 
+/* Overriding Bootstrap's bg-dark */
+.bg-dark {
+  background-color: var(--pink-light-card) !important;
+  border: 1px solid var(--pink-primary) !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  color: var(--pink-dark-text) !important;
+}
+
+/* Buttons */
 .btn-primary {
   background-color: var(--pink-secondary);
   border-color: var(--pink-secondary);
+  color: white;
 }
 
 .btn-primary:hover, .btn-primary:focus {
@@ -48,21 +71,61 @@ body {
 .btn-outline-secondary:hover {
   background-color: var(--pink-secondary);
   border-color: var(--pink-secondary);
+  color: white;
 }
 
+/* Badges */
 .badge.bg-info {
   background-color: var(--pink-primary) !important;
-  color: #333 !important;
+  color: var(--pink-dark-text) !important;
 }
 
+.badge.bg-primary {
+  background-color: var(--pink-secondary) !important;
+  color: white !important;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+  color: white !important;
+}
+
+.badge.bg-light {
+  background-color: var(--pink-light-card) !important;
+  color: var(--pink-dark-text) !important;
+  border: 1px solid var(--pink-primary);
+}
+
+.badge.bg-success, .text-success {
+  color: #28a745 !important;
+}
+
+/* Text */
 .lead {
-  color: #333;
+  color: var(--pink-dark-text);
 }
 
+.text-primary {
+  color: var(--pink-secondary) !important;
+}
+
+.text-light {
+  color: var(--pink-dark-text) !important;
+}
+
+/* Score Badge */
 .score-badge {
   border: 2px solid white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white !important;
 }
 
+/* Images */
 .hostel-image {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
@@ -70,32 +133,92 @@ body {
   object-fit: cover;
 }
 
+/* Footer */
 .footer {
   background-color: var(--pink-primary);
-  color: #333;
+  color: var(--pink-dark-text);
+}
+
+/* Form Elements */
+.form-control, .form-select {
+  border-color: var(--pink-primary);
+  background-color: white;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--pink-secondary);
+  box-shadow: 0 0 0 0.25rem rgba(240, 98, 146, 0.25);
+}
+
+.form-check-input {
+  border-color: var(--pink-secondary);
+}
+
+.form-check-input:checked {
+  background-color: var(--pink-secondary) !important;
+  border-color: var(--pink-secondary) !important;
+}
+
+.form-range {
+  accent-color: var(--pink-secondary);
+}
+
+.form-label {
+  color: var(--pink-dark-text);
+  font-weight: 500;
 }
 
 /* Modal styling */
 .modal-header {
   background-color: var(--pink-primary);
-  color: #333;
+  color: var(--pink-dark-text);
 }
 
 .modal-content {
   border-color: var(--pink-primary);
 }
 
-/* Form styling */
-.form-control:focus {
-  border-color: var(--pink-secondary);
-  box-shadow: 0 0 0 0.25rem rgba(240, 98, 146, 0.25);
-}
-
 /* Links */
 a {
   color: var(--pink-dark);
+  text-decoration: none;
 }
 
 a:hover {
   color: var(--pink-complementary);
+  text-decoration: underline;
+}
+
+/* Feature Icon */
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* CTA Section */
+.bg-primary {
+  background-color: var(--pink-secondary) !important;
+}
+
+/* Custom styling for cards in index.html */
+.feature-card {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-footer {
+  background-color: transparent !important; 
+}
+
+/* Recommendations page special styles */
+.recommendation-card {
+  transition: transform 0.2s ease;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
