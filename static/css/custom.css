@@ -1,97 +1,101 @@
-/* Custom CSS for PuneHostels */
+/* Custom pink theme for the hostel recommendation system */
 
-/* General styling */
+:root {
+  --pink-primary: #F8BBD0;    /* Light pink primary */
+  --pink-secondary: #F06292;  /* Medium pink secondary */
+  --pink-dark: #EC407A;       /* Dark pink for hover/focus */
+  --pink-very-light: #FCE4EC; /* Very light pink for backgrounds */
+  --pink-complementary: #5E35B1; /* Complementary color for accents */
+}
+
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  background-color: var(--pink-very-light);
 }
 
-.site-content {
-    flex: 1;
+.navbar {
+  background-color: var(--pink-primary) !important;
 }
 
-/* Hero section styling */
-.hero-section {
-    padding: 4rem 0;
-    background-color: #343a40;
-    margin-bottom: 2rem;
+.card {
+  border-color: var(--pink-primary);
 }
 
-/* Feature cards styling */
-.feature-card {
-    transition: transform 0.3s ease;
-    height: 100%;
+.bg-dark {
+  background-color: #ffffff !important;
+  border: 1px solid var(--pink-primary);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
+.card-title {
+  color: var(--pink-dark);
 }
 
-.feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.btn-primary {
+  background-color: var(--pink-secondary);
+  border-color: var(--pink-secondary);
 }
 
-/* Recommendation cards styling */
-.recommendation-card {
-    height: 100%;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--pink-dark);
+  border-color: var(--pink-dark);
 }
 
-.recommendation-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+.btn-outline-secondary {
+  color: var(--pink-secondary);
+  border-color: var(--pink-secondary);
 }
 
-.hostel-image {
-    height: 180px;
-    object-fit: cover;
+.btn-outline-secondary:hover {
+  background-color: var(--pink-secondary);
+  border-color: var(--pink-secondary);
+}
+
+.badge.bg-info {
+  background-color: var(--pink-primary) !important;
+  color: #333 !important;
+}
+
+.lead {
+  color: #333;
 }
 
 .score-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 0.5rem;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: white;
+  border: 2px solid white;
 }
 
-/* Empty state for filter results */
-.empty-state {
-    display: none;
-    text-align: center;
-    padding: 3rem;
+.hostel-image {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  height: 180px;
+  object-fit: cover;
+}
+
+.footer {
+  background-color: var(--pink-primary);
+  color: #333;
+}
+
+/* Modal styling */
+.modal-header {
+  background-color: var(--pink-primary);
+  color: #333;
+}
+
+.modal-content {
+  border-color: var(--pink-primary);
 }
 
 /* Form styling */
-.form-section {
-    background-color: #343a40;
-    padding: 2rem;
-    border-radius: 0.5rem;
+.form-control:focus {
+  border-color: var(--pink-secondary);
+  box-shadow: 0 0 0 0.25rem rgba(240, 98, 146, 0.25);
 }
 
-.custom-feedback {
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 80%;
-    color: #dc3545;
+/* Links */
+a {
+  color: var(--pink-dark);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 2rem 0;
-    }
-    
-    .hostel-image {
-        height: 160px;
-    }
+a:hover {
+  color: var(--pink-complementary);
 }
