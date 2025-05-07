@@ -48,51 +48,7 @@
         </div>
     </div>
     
-    <!-- Filters -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="filter-section">
-                <h4 class="mb-3">Filter Results</h4>
-                <form id="filter-form" class="row g-3">
-                    <div class="col-md-3">
-                        <label for="min-score" class="form-label">Minimum Score</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="min-score" min="0" max="100" value="0">
-                            <span class="input-group-text">%</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="max-rent" class="form-label">Maximum Rent</label>
-                        <div class="input-group">
-                            <span class="input-group-text">₹</span>
-                            <input type="number" class="form-control" id="max-rent" min="0" value="{{ preferences.budget }}">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="filter-room-type" class="form-label">Room Type</label>
-                        <select class="form-select" id="filter-room-type">
-                            <option value="any" selected>Any</option>
-                            <option value="single">Single</option>
-                            <option value="double">Double</option>
-                            <option value="shared">Shared</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="filter-hostel-type" class="form-label">Hostel Type</label>
-                        <select class="form-select" id="filter-hostel-type">
-                            <option value="any" selected>Any</option>
-                            <option value="hostel">Hostel</option>
-                            <option value="PG">PG</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <button type="submit" class="btn btn-primary">Apply Filters</button>
-                        <button type="reset" class="btn btn-outline-secondary ms-2">Reset</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- No filters as requested -->
     
     <!-- Recommendations -->
     <div class="row">
@@ -158,13 +114,7 @@
         {% endif %}
     </div>
     
-    <!-- Empty state (hidden by default) -->
-    <div id="empty-results" class="empty-state">
-        <i class="fas fa-filter fa-3x mb-3 text-muted"></i>
-        <h3>No results match your filters</h3>
-        <p class="lead">Try adjusting your filter criteria to see more results.</p>
-        <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('filter-form').reset(); filterRecommendations();">Reset Filters</button>
-    </div>
+    <!-- No empty state needed as filters have been removed -->
 </div>
 
 <!-- Hostel Detail Modal -->
