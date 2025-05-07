@@ -273,7 +273,7 @@ def recommendations():
     # Calculate suitability scores
     scored_hostels = calculate_suitability_scores(hostels, preferences)
     
-    return render_template('recommendations.html', 
+    return render_template('recommendations_new.html', 
                            recommendations=scored_hostels,
                            preferences=preferences)
 
