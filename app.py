@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import random
 import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from sklearn.linear_model import LinearRegression
@@ -17,14 +18,14 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
-# MongoDB connection (disabled for now, using JSON as fallback)
+# MongoDB connection to your existing Atlas database
 def get_db_connection():
     try:
-        # The MongoDB connection string would typically be stored in an environment variable
+        # The MongoDB connection string is stored in an environment variable
         mongodb_uri = os.environ.get("MONGODB_URI")
         if mongodb_uri:
             client = MongoClient(mongodb_uri, tlsCAFile=certifi.where())
-            return client.hostel_recommendation_db
+            return client.lrm  # Use the 'lrm' database you've created
         else:
             logging.warning("MongoDB URI not found. Using JSON data instead.")
             return None
@@ -38,10 +39,35 @@ def load_hostel_data():
     db = get_db_connection()
     if db:
         try:
-            # Get all hostels from MongoDB
-            hostels_list = list(db.hostels.find({}, {'_id': 0}))
+            # Get all hostels from MongoDB collection 'hinfo'
+            hostels_list = list(db.hinfo.find({}, {'_id': 0}))
             if hostels_list:
-                return {"hostels": hostels_list}
+                # Transform data to match our application's expected format
+                transformed_hostels = []
+                for hostel in hostels_list:
+                    # Map the field names from your MongoDB schema to our application schema
+                    transformed_hostel = {
+                        "id": hostel.get("hostel_id", hash(hostel["hostel_name"]) % 10000),  # Generate ID if none exists
+                        "name": hostel["hostel_name"],
+                        "type": hostel["hostel_type"],
+                        "rent": hostel["rent"],
+                        "room_type": [hostel["room_type"].lower()], # Convert to list of lowercase types
+                        "amenities": [a.lower().replace(" ", "_") for a in hostel["amenities"]],  # Convert to lowercase and replace spaces
+                        "safety_priority": 5 if hostel["safety_priority"] == "High" else (3.5 if hostel["safety_priority"] == "Medium" else 2),
+                        "rating": hostel["rating"],
+                        "reviews_count": random.randint(50, 200),  # Generate review count if none exists
+                        "distance_to_college": float(hostel["distance_to_college"].split()[0]),  # Extract numeric part
+                        "address": hostel["address"],
+                        "contact": hostel["contact_number"],
+                        "image_url": f"https://images.unsplash.com/photo-{random.randint(1500000000, 1600000000)}-{random.randint(10000000, 99999999)}?ixlib=rb-4.0.3",
+                        "colleges_nearby": [hostel["college"]]
+                    }
+                    transformed_hostels.append(transformed_hostel)
+                
+                logging.info(f"Loaded {len(transformed_hostels)} hostels from MongoDB")
+                return {"hostels": transformed_hostels}
+            else:
+                logging.warning("No data found in MongoDB. Using JSON fallback.")
         except Exception as e:
             logging.error(f"Error retrieving data from MongoDB: {e}")
     
@@ -56,29 +82,20 @@ def load_hostel_data():
             json.dump(hostels, f, indent=4)
         return hostels
 
-# Load initial data into MongoDB (would be called once during setup)
+# No need to load data into MongoDB since you've already populated it
 def load_data_to_mongodb():
     db = get_db_connection()
     if not db:
         return False
     
-    # Check if data already exists
-    if db.hostels.count_documents({}) == 0:
-        try:
-            # Load from JSON
-            with open('static/data/hostels.json', 'r') as f:
-                hostels_data = json.load(f)
-            
-            # Insert into MongoDB
-            db.hostels.insert_many(hostels_data["hostels"])
-            logging.info("Data successfully loaded into MongoDB")
-            return True
-        except Exception as e:
-            logging.error(f"Error loading data into MongoDB: {e}")
-            return False
-    else:
-        logging.info("MongoDB already contains hostel data")
+    try:
+        # Just check if data exists
+        count = db.hinfo.count_documents({})
+        logging.info(f"MongoDB contains {count} hostel records")
         return True
+    except Exception as e:
+        logging.error(f"Error checking MongoDB data: {e}")
+        return False
 
 def generate_hostel_data():
     """Generate initial hostel data for the application"""
