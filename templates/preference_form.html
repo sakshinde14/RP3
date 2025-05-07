@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}Find Your Hostel - HostelMatch{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-check-input:checked {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4">Tell Us Your Preferences</h1>
+            <p class="lead">Fill out the form below to help us find the perfect hostel match for you.</p>
+        </div>
+    </div>
+    
+    <!-- Preference Form -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-section">
+                <form id="preference-form" action="{{ url_for('submit_preferences') }}" method="POST" class="needs-validation" novalidate>
+                    <!-- College Selection -->
+                    <div class="mb-4">
+                        <label for="college" class="form-label">College/University</label>
+                        <select class="form-select" id="college" name="college" required>
+                            <option value="" selected disabled>Select your college</option>
+                            {% for college in colleges %}
+                            <option value="{{ college }}">{{ college }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select your college.</div>
+                    </div>
+                    
+                    <!-- Budget Range -->
+                    <div class="mb-4">
+                        <label for="budget" class="form-label">Maximum Monthly Rent Budget (₹)</label>
+                        <div class="d-flex align-items-center mb-2">
+                            <input type="range" class="form-range flex-grow-1" id="budget" name="budget" min="3000" max="20000" step="500" value="8000" required>
+                            <span class="ms-3 badge bg-primary px-3 py-2" id="budget-display">₹8000</span>
+                        </div>
+                        <div class="invalid-feedback">Please set your budget.</div>
+                    </div>
+                    
+                    <!-- Room Type -->
+                    <div class="mb-4">
+                        <label class="form-label">Preferred Room Type</label>
+                        <div class="d-flex flex-wrap gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="room_type" id="single" value="single" required>
+                                <label class="form-check-label" for="single">
+                                    Single (1 person)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="room_type" id="double" value="double">
+                                <label class="form-check-label" for="double">
+                                    Double (2 persons)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="room_type" id="shared" value="shared">
+                                <label class="form-check-label" for="shared">
+                                    Shared (3+ persons)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="custom-feedback" id="room-type-feedback"></div>
+                    </div>
+                    
+                    <!-- Hostel Type -->
+                    <div class="mb-4">
+                        <label class="form-label">Preferred Hostel Type</label>
+                        <div class="d-flex flex-wrap gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="hostel_type" id="hostel" value="hostel" required>
+                                <label class="form-check-label" for="hostel">
+                                    Hostel
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="hostel_type" id="pg" value="PG">
+                                <label class="form-check-label" for="pg">
+                                    PG (Paying Guest)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="custom-feedback" id="hostel-type-feedback"></div>
+                    </div>
+                    
+                    <!-- Amenities -->
+                    <div class="mb-4">
+                        <label class="form-label">Required Amenities</label>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="food" value="food">
+                                    <label class="form-check-label" for="food">
+                                        <i class="fas fa-utensils me-1"></i> Food
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="wifi" value="wifi">
+                                    <label class="form-check-label" for="wifi">
+                                        <i class="fas fa-wifi me-1"></i> Wi-Fi
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="laundry" value="laundry">
+                                    <label class="form-check-label" for="laundry">
+                                        <i class="fas fa-tshirt me-1"></i> Laundry
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="ac" value="AC">
+                                    <label class="form-check-label" for="ac">
+                                        <i class="fas fa-snowflake me-1"></i> AC
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="gym" value="gym">
+                                    <label class="form-check-label" for="gym">
+                                        <i class="fas fa-dumbbell me-1"></i> Gym
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="amenities" id="swimming-pool" value="swimming pool">
+                                    <label class="form-check-label" for="swimming-pool">
+                                        <i class="fas fa-swimming-pool me-1"></i> Swimming Pool
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-feedback" id="amenities-feedback"></div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Find Hostels</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Sidebar Information -->
+        <div class="col-lg-4">
+            <div class="card bg-dark mb-4">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fas fa-info-circle me-2"></i>Why We Need This Info</h4>
+                    <p class="card-text">We use your preferences to train our recommendation model, helping us find the most suitable accommodation for you.</p>
+                </div>
+            </div>
+            
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fas fa-lightbulb me-2"></i>Tips</h4>
+                    <ul class="card-text">
+                        <li class="mb-2">Be realistic about your budget</li>
+                        <li class="mb-2">Consider what amenities are truly important to you</li>
+                        <li class="mb-2">Think about proximity to your college</li>
+                        <li>Balance cost with comfort and safety</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fas fa-lock me-2"></i>Privacy Note</h4>
+                    <p class="card-text">Your preference data is only used to generate recommendations and is not shared with third parties.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

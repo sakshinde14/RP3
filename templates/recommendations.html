@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Hostel Recommendations - HostelMatch{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4">Your Hostel Recommendations</h1>
+            <p class="lead">Based on your preferences, we've found these hostels that match your requirements.</p>
+        </div>
+    </div>
+    
+    <!-- User Preferences Summary -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark mb-4">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Your Preferences</h4>
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-university me-2"></i>College:</strong>
+                            <p>{{ preferences.college }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-rupee-sign me-2"></i>Budget:</strong>
+                            <p>₹{{ preferences.budget }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-bed me-2"></i>Room Type:</strong>
+                            <p>{{ preferences.room_type|capitalize }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <strong><i class="fas fa-home me-2"></i>Hostel Type:</strong>
+                            <p>{{ preferences.hostel_type|capitalize }}</p>
+                        </div>
+                        <div class="col-12">
+                            <strong><i class="fas fa-clipboard-list me-2"></i>Amenities:</strong>
+                            <p>
+                                {% for amenity in preferences.amenities %}
+                                    <span class="badge bg-secondary me-1">{{ amenity|capitalize }}</span>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="filter-section">
+                <h4 class="mb-3">Filter Results</h4>
+                <form id="filter-form" class="row g-3">
+                    <div class="col-md-3">
+                        <label for="min-score" class="form-label">Minimum Score</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="min-score" min="0" max="100" value="0">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="max-rent" class="form-label">Maximum Rent</label>
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            <input type="number" class="form-control" id="max-rent" min="0" value="{{ preferences.budget }}">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filter-room-type" class="form-label">Room Type</label>
+                        <select class="form-select" id="filter-room-type">
+                            <option value="any" selected>Any</option>
+                            <option value="single">Single</option>
+                            <option value="double">Double</option>
+                            <option value="shared">Shared</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filter-hostel-type" class="form-label">Hostel Type</label>
+                        <select class="form-select" id="filter-hostel-type">
+                            <option value="any" selected>Any</option>
+                            <option value="hostel">Hostel</option>
+                            <option value="PG">PG</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        <button type="reset" class="btn btn-outline-secondary ms-2">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recommendations -->
+    <div class="row">
+        {% if recommendations %}
+            {% for recommendation in recommendations %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card recommendation-card"
+                         data-id="{{ recommendation.hostel.id }}"
+                         data-score="{{ recommendation.score }}"
+                         data-rent="{{ recommendation.hostel.rent }}"
+                         data-room-types="{{ recommendation.hostel.room_type|join(',') }}"
+                         data-hostel-type="{{ recommendation.hostel.type }}"
+                         data-name="{{ recommendation.hostel.name }}"
+                         data-amenities="{{ recommendation.hostel.amenities|join(',') }}"
+                         data-address="{{ recommendation.hostel.address }}"
+                         data-contact="{{ recommendation.hostel.contact }}"
+                         data-safety="{{ recommendation.hostel.safety_rating }}"
+                         data-cleanliness="{{ recommendation.hostel.cleanliness }}"
+                         data-colleges="{{ recommendation.hostel.colleges_nearby|join(',') }}">
+                        <div class="position-relative">
+                            <img src="{{ recommendation.hostel.image_url }}" class="card-img-top hostel-image" alt="{{ recommendation.hostel.name }}">
+                            <div class="score-badge {% if recommendation.score >= 80 %}bg-success{% elif recommendation.score >= 60 %}bg-info{% elif recommendation.score >= 40 %}bg-warning{% else %}bg-danger{% endif %}">
+                                {{ recommendation.score }}%
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recommendation.hostel.name }}</h5>
+                            <p class="card-text">
+                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹{{ recommendation.hostel.rent }}/month<br>
+                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                {% for room in recommendation.hostel.room_type %}
+                                    {{ room|capitalize }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}<br>
+                                <strong><i class="fas fa-home me-1"></i>Type:</strong> {{ recommendation.hostel.type|capitalize }}<br>
+                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> {{ recommendation.hostel.avg_rating }}/5 ({{ recommendation.hostel.reviews_count }} reviews)
+                            </p>
+                            <div class="mb-3">
+                                {% for amenity in recommendation.hostel.amenities %}
+                                    <span class="badge bg-info text-dark me-1 mb-1">{{ amenity|capitalize }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" onclick="showHostelDetails({{ recommendation.hostel.id }})">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <div class="p-5 bg-dark rounded">
+                    <h3><i class="fas fa-exclamation-circle me-2"></i>No Recommendations Found</h3>
+                    <p class="lead">We couldn't find any hostels matching your preferences. Please try adjusting your criteria.</p>
+                    <a href="{{ url_for('preference_form') }}" class="btn btn-primary mt-3">Update Preferences</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Empty state (hidden by default) -->
+    <div id="empty-results" class="empty-state">
+        <i class="fas fa-filter fa-3x mb-3 text-muted"></i>
+        <h3>No results match your filters</h3>
+        <p class="lead">Try adjusting your filter criteria to see more results.</p>
+        <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('filter-form').reset(); filterRecommendations();">Reset Filters</button>
+    </div>
+</div>
+
+<!-- Hostel Detail Modal -->
+<div class="modal fade" id="hostelDetailModal" tabindex="-1" aria-labelledby="hostelDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hostelDetailModalLabel">Hostel Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

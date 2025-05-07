@@ -1,0 +1,131 @@
+/* Custom styles for the hostel recommendation system */
+
+/* General styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
+/* Hero section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1621640786029-220e9ff8dd09?ixlib=rb-4.0.3');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 5rem 0;
+    margin-bottom: 2rem;
+}
+
+/* Feature cards */
+.feature-card {
+    height: 100%;
+    transition: transform 0.3s;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Form styling */
+.form-section {
+    background-color: var(--bs-tertiary-bg);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.amenity-checkbox {
+    margin-right: 1rem;
+}
+
+/* Custom validation feedback */
+.custom-feedback {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: var(--bs-danger);
+    display: none;
+}
+
+/* Recommendation cards */
+.recommendation-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 1.5rem;
+    height: 100%;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.score-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+}
+
+.hostel-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.filter-section {
+    background-color: var(--bs-tertiary-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Empty state styling */
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--bs-tertiary-bg);
+    border-radius: 10px;
+    margin-top: 2rem;
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 0;
+    }
+    
+    .hostel-image {
+        height: 150px;
+    }
+}
+
+/* Tooltip fix for dark theme */
+.tooltip {
+    --bs-tooltip-bg: var(--bs-dark);
+    --bs-tooltip-color: var(--bs-light);
+}
+
+/* Amenity badges */
+.amenity-badge {
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
