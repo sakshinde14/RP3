@@ -22,7 +22,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 def get_db_connection():
     try:
         # The MongoDB connection string is stored in an environment variable
-        mongodb_uri = os.environ.get("MONGODB_URI")
+        mongodb_uri = os.environ.get("mongodb+srv://sakshi:gaurinde@cluster0.vpbqv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
         if mongodb_uri:
             client = MongoClient(mongodb_uri, tlsCAFile=certifi.where())
             return client.lrm  # Use the 'lrm' database you've created

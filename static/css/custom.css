@@ -140,9 +140,14 @@ body {
 }
 
 /* Form Elements */
+.formmm {
+  border-color: var(--pink-light-card);
+}
+
+
 .form-control, .form-select {
-  border-color: var(--pink-primary);
-  background-color: white;
+  border-color: var(--pink-dark-text);
+  background-color: #423855;
 }
 
 .form-control:focus, .form-select:focus {
@@ -151,7 +156,7 @@ body {
 }
 
 .form-check-input {
-  border-color: var(--pink-secondary);
+  border-color: var(--pink-dark-text);
 }
 
 .form-check-input:checked {
