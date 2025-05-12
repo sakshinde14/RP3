@@ -23,7 +23,7 @@
                             <p>{{ preferences.college }}</p>
                         </div>
                         <div class="col-md-3 mb-2">
-                            <strong><i class="fas fa-rupee-sign me-2"></i>Budget:</strong>
+                            <strong><i class="fas me-2"></i>₹ Budget:</strong>
                             <p>₹{{ preferences.budget }}</p>
                         </div>
                         <div class="col-md-3 mb-2">
@@ -68,7 +68,7 @@
                          data-distance="{{ recommendation.hostel.distance_to_college }}"
                          data-colleges="{{ recommendation.hostel.colleges_nearby|join(',') }}">
                         <div class="position-relative">
-                            <img src="{{ recommendation.hostel.image_url }}" class="card-img-top hostel-image" alt="{{ recommendation.hostel.name }}">
+                            <!--img src="{{ recommendation.hostel.image_url }}" class="card-img-top hostel-image" alt="{{ recommendation.hostel.name }}"-->
                             <div class="score-badge {% if recommendation.score >= 80 %}bg-success{% elif recommendation.score >= 60 %}bg-info{% elif recommendation.score >= 40 %}bg-warning{% else %}bg-danger{% endif %}">
                                 {{ recommendation.score }}%
                             </div>
@@ -76,14 +76,14 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ recommendation.hostel.name }}</h5>
                             <p class="card-text">
-                                <strong><i class="fas fa-rupee-sign me-1"></i>Rent:</strong> ₹{{ recommendation.hostel.rent }}/month<br>
-                                <strong><i class="fas fa-bed me-1"></i>Room Types:</strong> 
+                                <strong><i class="fas me-1"></i> Rent:</strong> ₹{{ recommendation.hostel.rent }}/month<br>
+                                <strong><i class="fas  me-1"></i> Room Types:</strong> 
                                 {% for room in recommendation.hostel.room_type %}
                                     {{ room|capitalize }}{% if not loop.last %}, {% endif %}
                                 {% endfor %}<br>
-                                <strong><i class="fas fa-home me-1"></i>Type:</strong> {{ recommendation.hostel.type|capitalize }}<br>
-                                <strong><i class="fas fa-star me-1"></i>Rating:</strong> {{ recommendation.hostel.rating }}/5 ({{ recommendation.hostel.reviews_count }} reviews)<br>
-                                <strong><i class="fas fa-map-marker-alt me-1"></i>Distance:</strong> {{ recommendation.hostel.distance_to_college }} km from college
+                                <strong><i class="fas  me-1"></i> Type:</strong> {{ recommendation.hostel.type|capitalize }}<br>
+                                <strong><i class="fas  me-1"></i> Rating:</strong> {{ recommendation.hostel.rating }}/5 ({{ recommendation.hostel.reviews_count }} reviews)<br>
+                                <strong><i class="fas  me-1"></i> Distance:</strong> {{ recommendation.hostel.distance_to_college }} km from college
                             </p>
                             <div class="mb-3">
                                 {% set top_amenities = recommendation.hostel.amenities[:5] %}

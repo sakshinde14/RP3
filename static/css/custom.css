@@ -86,8 +86,10 @@ body {
 }
 
 .badge.bg-secondary {
-  background-color: #6c757d !important;
-  color: white !important;
+  background-color: transparent !important;
+  font-size: medium;
+  font-weight: normal;
+  color: rgb(0, 0, 0) !important;
 }
 
 .badge.bg-light {
