@@ -22,7 +22,9 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 def get_db_connection():
     try:
         # The MongoDB connection string is stored in an environment variable
-        mongodb_uri = os.environ.get("mongodb+srv://sakshi:gaurinde@cluster0.vpbqv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+        mongodb_uri = os.environ.get("MONGODB_URI", "mongodb+srv://sakshi:gaurinde@cluster0.vpbqv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+
+        #mongodb_uri = os.environ.get("mongodb+srv://sakshi:gaurinde@cluster0.vpbqv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
         if mongodb_uri:
             client = MongoClient(mongodb_uri, tlsCAFile=certifi.where())
             return client.lrm  # Use the 'lrm' database you've created
@@ -190,7 +192,11 @@ def calculate_suitability_scores(hostels, preferences):
         # First filter: Only consider hostels near the chosen college
         if preferences["college"] not in hostel["colleges_nearby"]:
             continue
-            
+
+        # **Budget Filter**
+        if hostel["rent"] > preferences["budget"]:
+            continue  # Skip this hostel if the rent is higher than the budget
+
         score = 0
         
         # Budget match (penalize if over budget)

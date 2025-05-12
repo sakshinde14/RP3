@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+
+
 function validateForm() {
     let isValid = true;
     
@@ -78,6 +81,11 @@ function validateForm() {
     return isValid;
 }
 
+
+
+
+
+
 function setInvalidFeedback(element, message) {
     element.classList.add('is-invalid');
     element.classList.remove('is-valid');
@@ -88,6 +96,9 @@ function setInvalidFeedback(element, message) {
         feedback.textContent = message;
     }
 }
+
+
+
 
 function setValidFeedback(element) {
     element.classList.remove('is-invalid');

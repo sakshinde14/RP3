@@ -183,6 +183,11 @@ body {
   border-color: var(--pink-primary);
 }
 
+.modal-body {
+  background-color: var(--pink-light-card);
+  color: var(--pink-dark-text);
+}
+
 /* Links */
 a {
   color: var(--pink-dark);
