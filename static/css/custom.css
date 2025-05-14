@@ -76,8 +76,9 @@ body {
 
 /* Badges */
 .badge.bg-info {
-  background-color: var(--pink-primary) !important;
+  background-color: var(--pink-very-light) !important;
   color: var(--pink-dark-text) !important;
+  font-size: 15px;
 }
 
 .badge.bg-primary {
